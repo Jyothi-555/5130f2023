@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CarKonnect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .login-button,
+        .notification-button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .login-button:hover,
+        .notification-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .login-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: calc(30% - 20px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            color: red;
+        }
+
+        .car-listing {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: calc(30% - 20px);
+            margin-bottom: 20px;
+        }
+
+        .car-listing img {
+            width: 100%;
+            height: auto;
+        }
+
+        .car-title {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .filter-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: calc(30% - 20px);
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #notification-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: #007BFF;
+        }
+
+        #notification-icon:hover {
+            color: #0056b3;
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <button class="login-button" onclick="showLoginForm()">&#9776;</button>
+        <i id="notification-icon" class="fa fa-bell" aria-hidden="true" onclick="showNotifications()"></i>
+    </header>
+
+    <div class="container">
+        <!-- Car listings (Replace with your actual car listings later in coming weeks) -->
+        <div class="car-listing">
+            <img class="car-image" src="car1.jpeg" alt="Car 1">
+            <h2 class="car-title">Car 1</h2>
+            <p>Price: $10,000</p>
+        </div>
+
+        <div class="car-listing">
+            <img class="car-image" src="car2.avif" alt="Car 2">
+            <h2 class="car-title">Car 2</h2>
+            <p>Price: $12,000</p>
+        </div>
+
+        <div class="car-listing">
+            <img class="car-image" src="car3.jpeg" alt="Car 3">
+            <h2 class="car-title">Car 3</h2>
+            <p>Price: $15,000</p>
+        </div>
+
+        <!-- Filter for price range -->
+        <div class="filter-container">
+            <h2><i class="material-icons">attach_money</i> Price Range</h2>
+            <label for="minPrice">Min Price:</label>
+            <select id="minPrice" name="minPrice">
+                <option value="0">Any</option>
+                <option value="10000">$10,000</option>
+                <option value="20000">$20,000</option>
+                <!-- Add more options as needed -->
+            </select>
+            <br>
+
+            <label for="maxPrice">Max Price:</label>
+            <select id="maxPrice" name="maxPrice">
+                <option value="999999">Any</option>
+                <option value="20000">$20,000</option>
+                <option value="30000">$30,000</option>
+                <!-- Add more options as needed -->
+            </select>
+            <br>
+
+            <button type="button" onclick="applyPriceFilter()">Apply</button>
+        </div>
+
+        <!-- Login form -->
+        <div class="login-container" id="loginForm" style="display: none;">
+            <h1>Login to CarKonnect</h1>
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+
+                <button type="button" onclick="validateLogin()">Login</button>
+            </form>
+            <p id="errorMessage" style="color: red;"></p>
+        </div>
+    </div>
+
+    <script>
+        function showLoginForm() {
+            var loginForm = document.getElementById('loginForm');
+            loginForm.style.display = 'block';
+        }
+
+        function showNotifications() {
+            
+            alert('You have no new notifications.');
+        }
+
+        function validateLogin() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            
+            if (username === 'your_username' && password === 'your_password') {
+                alert('Login successful.');
+            } else {
+                document.getElementById('errorMessage').textContent = 'Invalid username or password.';
+            }
+        }
+
+        function applyPriceFilter() {
+            var minPrice = document.getElementById('minPrice').value;
+            var maxPrice = document.getElementById('maxPrice').value;
+
+            // I need to Add filtering logic for car listings based on price range.
+            // Should Replace this with the actual filtering code in future.
+            alert('Filtering cars between ' + minPrice + ' and ' + maxPrice);
+        }
+    </script>
+</body>
+</html>
