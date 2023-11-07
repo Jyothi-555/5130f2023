@@ -1,0 +1,169 @@
+
+<html>
+<head>
+    <title>Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        button[type="submit"], button[type="button"] {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button[type="button"] {
+            background-color: #333;
+        }
+
+        button[type="submit"]:hover, button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        #successMessage {
+            text-align: center;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Webpage</h1>
+
+    <form id="validationForm" onsubmit="return validateForm()">
+        <label for="email">Email:</label>
+        <input type="text" id="emailInput" required>
+        <p id="emailResult"></p>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phoneInput" required>
+        <p id="phoneResult"></p>
+
+        <label for="domain">Domain:</label>
+        <input type="text" id="domainInput" required>
+        <p id="domainResult"></p>
+
+        <button type="submit">Submit</button>
+        <button type="button" onclick="clearForm()">Cancel</button>
+    </form>
+
+    <div id="successMessage" style="display: none;">
+        <p>Form submitted successfully!</p>
+    </div>
+
+    <script>
+        function validateForm() {
+            const emailValidation = validateEmail();
+            const phoneValidation = validatePhoneNumber();
+            const domainValidation = validateDomain();
+
+            if (emailValidation && phoneValidation && domainValidation) {
+                document.getElementById("successMessage").style.display = "block";
+                return false; // Prevent actual form submission
+            } else {
+                return false; // Prevent actual form submission
+            }
+        }
+
+        function validateEmail() {
+            const emailInput = document.getElementById("emailInput");
+            const emailResult = document.getElementById("emailResult");
+
+            const email = emailInput.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailRegex.test(email)) {
+                emailResult.textContent = "Email is valid.";
+                emailResult.style.color = "green";
+                return true;
+            } else {
+                emailResult.textContent = "Email is not valid.";
+                emailResult.style.color = "red";
+                return false;
+            }
+        }
+
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById("phoneInput");
+            const phoneResult = document.getElementById("phoneResult");
+
+            const phoneNumber = phoneInput.value;
+            const phoneRegex = /^\d{10}$/;
+
+            if (phoneRegex.test(phoneNumber)) {
+                phoneResult.textContent = "Phone number is valid.";
+                phoneResult.style.color = "green";
+                return true;
+            } else {
+                phoneResult.textContent = "Phone number is not valid.";
+                phoneResult.style.color = "red";
+                return false;
+            }
+        }
+
+        function validateDomain() {
+            const domainInput = document.getElementById("domainInput");
+            const domainResult = document.getElementById("domainResult");
+
+            const domain = domainInput.value;
+            const domainRegex = /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
+
+            if (domainRegex.test(domain)) {
+                domainResult.textContent = "Domain is valid.";
+                domainResult.style.color = "green";
+                return true;
+            } else {
+                domainResult.textContent = "Domain is not valid.";
+                domainResult.style.color = "red";
+                return false;
+            }
+        }
+
+        function clearForm() {
+            document.getElementById("validationForm").reset();
+            document.getElementById("emailResult").textContent = "";
+            document.getElementById("phoneResult").textContent = "";
+            document.getElementById("domainResult").textContent = "";
+            document.getElementById("successMessage").style.display = "none";
+        }
+    </script>
+</body>
+</html>
